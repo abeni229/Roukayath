@@ -16,6 +16,37 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
     <style>
+                #menu-btn {
+            display: none; /* par défaut caché sur desktop */
+        }
+
+        #nav-links {
+            display: flex; /* par défaut affiché en ligne */
+            gap: 1.5rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        @media (max-width: 768px) {
+    #menu-btn {
+        display: block; /* s'affiche en mobile */
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-size: 2rem;  /* Plus grand pour plus de visibilité */
+    }
+
+    #nav-links {
+        display: none; /* caché en mobile */
+        flex-direction: column;
+        margin-top: 1rem;
+    }
+
+    #nav-links.show {
+        display: flex; /* affiché si menu ouvert */
+    }
+}
+
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
@@ -79,16 +110,25 @@
         }
     </style>
 </head>
+
+
 <body>
     <header>
-        <div class="nav-container">
-            <h1>ROUKY</h1>
-            <nav>
-                <a href="{{ url('/') }}">Accueil</a>
-                <a href="{{ url('/contact') }}">Contact</a>
-                <a href="{{ url('/a-propos') }}">À propos</a>
-            </nav>
-        </div>
+        <nav style="background-color: #111827; padding: 1rem; color: white;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="logo" style="font-weight: bold;">ROUKY</div>
+                <button id="menu-btn" style="background: none; border: none; color: white; font-size: 1.5rem;">
+                    ☰
+                </button>
+                <ul id="nav-links">
+                    <li><a href="/" style="color: white;">Accueil</a></li>
+                    <li><a href="/a-propos" style="color: white;">À propos</a></li>
+                    <li><a href="/contact" style="color: white;">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+        
     </header>
 
     <main>
@@ -129,6 +169,17 @@
     
         <p style="font-size: 0.9rem;">&copy; {{ date('Y') }} Gazaliou Roukayath. Tous droits réservés.</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuBtn = document.getElementById('menu-btn');
+            const navLinks = document.getElementById('nav-links');
+    
+            menuBtn.addEventListener('click', function () {
+                navLinks.classList.toggle('show');
+            });
+        });
+    </script>
     
 </body>
 </html>
